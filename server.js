@@ -6,10 +6,12 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.static('public'));
 
-app.get('/capabilities.json', (req, res) => {
-  res.sendFile(__dirname + '/public/capabilities.json');
+// Serve capabilities.json at root for Trello validation
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/public/index.html');
 });
 
-app.listen(PORT, () => {
-  console.log(`Clean Power-Up running at http://localhost:${PORT}`);
+app.get('/capabilities.json', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.sendFile(__dirname + '/public/capabilities.json');
 });
