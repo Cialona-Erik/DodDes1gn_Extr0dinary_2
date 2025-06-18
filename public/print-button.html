@@ -3,6 +3,22 @@
 <head>
   <meta charset="utf-8" />
   <script src="https://p.trellocdn.com/power-up.min.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 16px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background: #26044e;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
   <button id="printCard">Print this card</button>
@@ -11,20 +27,34 @@
     const t = TrelloPowerUp.iframe({ url: window.location.href });
 
     t.render(() => {
-      document.getElementById('printCard').addEventListener('click', () => {
+      console.log("Trello iframe rendered");
+      const btn = document.getElementById('printCard');
+      if (!btn) {
+        console.error('Button not found');
+        return;
+      }
+
+      btn.addEventListener('click', () => {
+        console.log("Print button clicked");
         t.card('name', 'desc', 'cover', 'due', 'members').then(card => {
-          const url = '/print.html?' +
-            'name=' + encodeURIComponent(card.name) +
+          const baseUrl = '/print.html';
+          const query =
+            '?name=' + encodeURIComponent(card.name) +
             '&desc=' + encodeURIComponent(card.desc);
-          t.signUrl(url).then(signedUrl => {
+          const fullUrl = baseUrl + query;
+
+          t.signUrl(fullUrl).then(signedUrl => {
             t.modal({
               url: signedUrl,
               title: 'Print Card',
               height: 500,
-              width: 880,
-              fullscreen: false
+              width: 880
             });
+          }).catch(err => {
+            console.error("Error signing URL:", err);
           });
+        }).catch(err => {
+          console.error("Error fetching card:", err);
         });
       });
     });
