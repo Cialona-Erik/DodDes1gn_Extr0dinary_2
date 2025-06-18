@@ -11,5 +11,5 @@ app.get('/capabilities.json', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Card Back Printer Power-Up running on http://localhost:${PORT}`);
+  console.log(`Clean Power-Up running at http://localhost:${PORT}`);
 });
