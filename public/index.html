@@ -1,1 +1,16 @@
-<h2>Power-Up Installed</h2>
+<script src="https://p.trellocdn.com/power-up.min.js"></script>
+<script>
+TrelloPowerUp.initialize({
+  'card-back-section': function(t) {
+    return {
+      title: 'Print this Card',
+      icon: t.arg('icon'),
+      content: {
+        type: 'iframe',
+        url: t.signUrl('./print-button.html'),
+        height: 60
+      }
+    };
+  }
+});
+</script>
