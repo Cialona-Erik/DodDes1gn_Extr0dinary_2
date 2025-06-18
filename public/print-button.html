@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <script src="https://p.trellocdn.com/power-up.min.js"></script>
+</head>
+<body>
+  <button id="printCard">Print this card</button>
+
+  <script>
+    const t = TrelloPowerUp.iframe({ url: window.location.href });
+
+    t.render(() => {
+      document.getElementById('printCard').addEventListener('click', () => {
+        t.card('name', 'desc', 'cover', 'due', 'members').then(card => {
+          const url = '/print.html?' +
+            'name=' + encodeURIComponent(card.name) +
+            '&desc=' + encodeURIComponent(card.desc);
+          t.signUrl(url).then(signedUrl => {
+            t.modal({
+              url: signedUrl,
+              title: 'Print Card',
+              height: 500,
+              width: 880,
+              fullscreen: false
+            });
+          });
+        });
+      });
+    });
+  </script>
+</body>
+</html>
