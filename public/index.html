@@ -1,16 +1,27 @@
-<script src="https://p.trellocdn.com/power-up.min.js"></script>
-<script>
-TrelloPowerUp.initialize({
-  'card-back-section': function(t) {
-    return {
-      title: 'Print this Card',
-      icon: t.arg('icon'),
-      content: {
-        type: 'iframe',
-        url: t.signUrl('./print-button.html'),
-        height: 60
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Card Back Printer</title>
+  <script src="https://p.trellocdn.com/power-up.min.js"></script>
+</head>
+<body>
+  <h2>Card Back Printer Power-Up</h2>
+  <script>
+    TrelloPowerUp.initialize({
+      'card-back-section': function(t) {
+        return {
+          title: 'Print this Card',
+          icon: t.arg('icon'),
+          content: {
+            type: 'iframe',
+            url: t.signUrl('./print-button.html'),
+            height: 60
+          }
+        };
       }
-    };
-  }
-});
-</script>
+    });
+  </script>
+</body>
+</html>
